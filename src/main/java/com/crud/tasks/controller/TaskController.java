@@ -6,20 +6,19 @@ import com.crud.tasks.mapper.TaskMapper;
 import com.crud.tasks.service.DbService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/v1/task")
+@RequiredArgsConstructor
 public class TaskController {
+    @Autowired
     private final DbService dbService;
+    @Autowired
     private final TaskMapper taskMapper;
-
-    public TaskController(DbService dbService, TaskMapper taskMapper) {
-        this.dbService = dbService;
-        this.taskMapper = taskMapper;
-    }
 
     @GetMapping(value = "getTasks")
     public List<TaskDto> getTasks() {
@@ -28,20 +27,26 @@ public class TaskController {
     }
 
     @GetMapping(value = "getTask")
-    public TaskDto getTask(@RequestParam Long taskId) throws TaskNotFoundException {
+    public TaskDto getTask(@RequestParam long taskId) {
         return taskMapper.mapToTaskDto(
-                dbService.getTask(taskId).orElseThrow(TaskNotFoundException::new)
-        );
+                dbService.getTask(taskId));
     }
 
     @DeleteMapping(value = "deleteTask")
-    public void deleteTask(Long taskId) {}
-
-    @PutMapping(value = "updateTask")
-    public TaskDto updateTask(TaskDto taskDto) {
-        return new TaskDto(1L, "Edited test title", "test content");
+    public void deleteTask(@RequestParam long taskId) throws TaskNotFoundException {
+            dbService.deleteTask(taskId);
     }
 
-    @PostMapping(value = "createTask")
-    public void createTask(TaskDto taskDto) {}
+    @PutMapping(value = "updateTask")
+    public TaskDto updateTask(@RequestBody TaskDto taskDto) {
+          Task task = taskMapper.mapToTask(taskDto);
+        Task savedTask = dbService.saveTask(task);
+        return taskMapper.mapToTaskDto(savedTask);
+    }
+
+    @PostMapping(value = "createTask", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Task createTask(@RequestBody TaskDto taskDto) {
+        Task createdTask = taskMapper.mapToTask(taskDto);
+        return dbService.saveTask(createdTask);
+    }
 }
