@@ -33,24 +33,20 @@ public class TaskController {
     }
 
     @DeleteMapping(value = "deleteTask")
-    public void deleteTask(@RequestParam long taskId) {
-        try {
+    public void deleteTask(@RequestParam long taskId) throws TaskNotFoundException {
             dbService.deleteTask(taskId);
-        } catch (TaskNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 
     @PutMapping(value = "updateTask")
-    public TaskDto updateTask(TaskDto taskDto) {
-        Task task = taskMapper.mapToTask(taskDto);
+    public TaskDto updateTask(@RequestBody TaskDto taskDto) {
+          Task task = taskMapper.mapToTask(taskDto);
         Task savedTask = dbService.saveTask(task);
         return taskMapper.mapToTaskDto(savedTask);
     }
 
     @PostMapping(value = "createTask", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void createTask(@RequestBody TaskDto taskDto) {
+    public Task createTask(@RequestBody TaskDto taskDto) {
         Task createdTask = taskMapper.mapToTask(taskDto);
-        dbService.saveTask(createdTask);
+        return dbService.saveTask(createdTask);
     }
 }
