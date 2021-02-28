@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/v1/task")
+@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class TaskController {
     @Autowired
@@ -28,18 +29,17 @@ public class TaskController {
 
     @GetMapping(value = "getTask")
     public TaskDto getTask(@RequestParam long taskId) {
-        return taskMapper.mapToTaskDto(
-                dbService.getTask(taskId));
+        return taskMapper.mapToTaskDto(dbService.getTask(taskId));
     }
 
     @DeleteMapping(value = "deleteTask")
     public void deleteTask(@RequestParam long taskId) throws TaskNotFoundException {
-            dbService.deleteTask(taskId);
+        dbService.deleteTask(taskId);
     }
 
     @PutMapping(value = "updateTask")
     public TaskDto updateTask(@RequestBody TaskDto taskDto) {
-          Task task = taskMapper.mapToTask(taskDto);
+        Task task = taskMapper.mapToTask(taskDto);
         Task savedTask = dbService.saveTask(task);
         return taskMapper.mapToTaskDto(savedTask);
     }
