@@ -22,14 +22,17 @@ public class TrelloController {
     public CreatedTrelloCard createTrelloCard(@RequestBody TrelloCardDto trelloCardDto) {
         return trelloClient.createNewCard(trelloCardDto);
     }
-
     @GetMapping("getTrelloBoards")
     public List<TrelloBoardDto> getTrelloBoards() {
+        return trelloClient.getTrelloBoards();
+    }
+
+    @GetMapping("getTrelloBoardsSample")
+    public List<TrelloBoardDto> getTrelloBoardsSample() {
         //GET request
         List<TrelloBoardDto> trelloBoards = trelloClient.getTrelloBoards();
 
         trelloBoards.stream()
-                .filter(e -> e.getName().startsWith("Kodilla"))
                 .filter(n -> n.getId() != null)
                 .forEach(trelloBoardDto -> System.out.println(trelloBoardDto.getId() + " " +
                 trelloBoardDto.getName()));
