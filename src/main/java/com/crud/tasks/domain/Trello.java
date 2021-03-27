@@ -7,8 +7,10 @@ import lombok.Data;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Trello {
+
     @JsonProperty("board")
     private String board;
+
     @JsonProperty("card")
     private String card;
 }
