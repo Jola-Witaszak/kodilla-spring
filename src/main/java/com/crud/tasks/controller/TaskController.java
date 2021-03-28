@@ -16,9 +16,8 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class TaskController {
-    @Autowired
+
     private final DbService dbService;
-    @Autowired
     private final TaskMapper taskMapper;
 
     @GetMapping(value = "getTasks")

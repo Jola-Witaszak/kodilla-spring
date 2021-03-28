@@ -6,7 +6,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity(name = "tasks")
+@Entity
+@Table(name = "tasks")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
