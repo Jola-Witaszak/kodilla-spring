@@ -22,7 +22,7 @@ public class CoreConfiguration {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("controller"))
+                .apis(RequestHandlerSelectors.basePackage("hidden-lowlands-06521.herokuapp.com/v1"))
                 .paths(PathSelectors.any())
                 .build();
     }
