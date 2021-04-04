@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
@@ -34,7 +35,7 @@ class TrelloClientTest {
         // Given
         when(trelloConfig.getTrelloApiEndpoint()).thenReturn("http://test.com");
         when(trelloConfig.getTrelloAppKey()).thenReturn("test");
-        when(trelloConfig.getTrelloToken()).thenReturn("test");
+        when(trelloConfig.getTrelloAppToken()).thenReturn("test");
         when(trelloConfig.getTrelloUsername()).thenReturn("test");
 
         TrelloBoardDto[] trelloBoards = new TrelloBoardDto[1];
@@ -57,7 +58,7 @@ class TrelloClientTest {
         //Given
         when(trelloConfig.getTrelloApiEndpoint()).thenReturn("http://test.com");
         when(trelloConfig.getTrelloAppKey()).thenReturn("test");
-        when(trelloConfig.getTrelloToken()).thenReturn("test");
+        when(trelloConfig.getTrelloAppToken()).thenReturn("test");
         TrelloCardDto trelloCardDto = new TrelloCardDto(
                 "Test Task",
                 "Test description",
@@ -84,7 +85,7 @@ class TrelloClientTest {
         //Given
         when(trelloConfig.getTrelloApiEndpoint()).thenReturn("http://test.com");
         when(trelloConfig.getTrelloAppKey()).thenReturn("test");
-        when(trelloConfig.getTrelloToken()).thenReturn("test");
+        when(trelloConfig.getTrelloAppToken()).thenReturn("test");
         when(trelloConfig.getTrelloUsername()).thenReturn("test");
 
         URI uri = new URI("http://test.com/members/test/boards?fields=name,id&lists=all&key=test&token=test");

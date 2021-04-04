@@ -28,7 +28,7 @@ public class TrelloController {
         return trelloService.fetchTrelloBoards();
     }
 
-    @GetMapping("getTrelloBoardsSample")
+  /*  @GetMapping("getTrelloBoardsSample")
     public List<TrelloBoardDto> getTrelloBoardsSample() {
         //GET request
         List<TrelloBoardDto> trelloBoards = trelloService.fetchTrelloBoards();
@@ -55,5 +55,5 @@ public class TrelloController {
                 trelloBoardDto.getLists().forEach(trelloListDto -> System.out.println(trelloListDto.getName() + " - " +
                         trelloListDto.getId() + " - " + trelloListDto.isClosed()));
         });
-    }
+    }*/
 }

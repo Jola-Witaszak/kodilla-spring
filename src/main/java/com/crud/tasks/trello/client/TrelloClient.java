@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @Component
 @RequiredArgsConstructor
 public class TrelloClient {
-    private static final Logger LOGGER = LoggerFactory.getLogger(TrelloClient.class);
+   private static final Logger LOGGER = LoggerFactory.getLogger(TrelloClient.class);
 
     private final RestTemplate restTemplate;
     private final TrelloConfig trelloConfig;
@@ -27,7 +27,7 @@ public class TrelloClient {
     public CreatedTrelloCard createNewCard(TrelloCardDto trelloCardDto) {
         URI url = UriComponentsBuilder.fromHttpUrl(trelloConfig.getTrelloApiEndpoint() + "/cards" )
                 .queryParam("key", trelloConfig.getTrelloAppKey())
-                .queryParam("token", trelloConfig.getTrelloToken())
+                .queryParam("token", trelloConfig.getTrelloAppToken())
                 .queryParam("name", trelloCardDto.getName())
                 .queryParam("desc", trelloCardDto.getDescription())
                 .queryParam("pos", trelloCardDto.getPos())
@@ -64,7 +64,7 @@ public class TrelloClient {
                 .queryParam("fields", "name,id")
                 .queryParam("lists", "all")
                 .queryParam("key", trelloConfig.getTrelloAppKey())
-                .queryParam("token", trelloConfig.getTrelloToken())
+                .queryParam("token", trelloConfig.getTrelloAppToken())
                 .build().encode().toUri();
     }
 }
