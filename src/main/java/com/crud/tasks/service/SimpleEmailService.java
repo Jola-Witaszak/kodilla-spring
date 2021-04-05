@@ -8,8 +8,6 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 import static org.springframework.data.mapping.Alias.ofNullable;
 
 @Slf4j
@@ -35,7 +33,7 @@ public class SimpleEmailService {
         mailMessage.setTo(mail.getMailTo());
         if (ofNullable(mail.getToCc()).isPresent()) {
             mailMessage.setCc(mail.getToCc());
-        };
+        }
         mailMessage.setSentDate(mail.getSentDate());
         mailMessage.setSubject(mail.getSubject());
         mailMessage.setText(mail.getMessage());
