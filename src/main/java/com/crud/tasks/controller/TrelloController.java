@@ -1,9 +1,9 @@
 package com.crud.tasks.controller;
 
-import com.crud.tasks.domain.CreatedTrelloCard;
+import com.crud.tasks.domain.CreatedTrelloCardDto;
 import com.crud.tasks.domain.TrelloBoardDto;
 import com.crud.tasks.domain.TrelloCardDto;
-import com.crud.tasks.service.TrelloService;
+import com.crud.tasks.trello.facade.TrelloFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,21 +14,21 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class TrelloController {
-    private final TrelloService trelloService;
+    private final TrelloFacade trelloFacade;
 
     @PostMapping("createTrelloCard")
-    public CreatedTrelloCard createTrelloCard(@RequestBody TrelloCardDto trelloCardDto) {
-        return trelloService.createTrelloCard(trelloCardDto);
+    public CreatedTrelloCardDto createTrelloCard(@RequestBody TrelloCardDto trelloCardDto) {
+        return trelloFacade.createCard(trelloCardDto);
     }
     @GetMapping("getTrelloBoards")
     public List<TrelloBoardDto> getTrelloBoards() {
-        return trelloService.fetchTrelloBoards();
+        return trelloFacade.fetchTrelloBoards();
     }
-
-  /*  @GetMapping("getTrelloBoardsSample")
+/*
+    @GetMapping("getTrelloBoardsSample")
     public List<TrelloBoardDto> getTrelloBoardsSample() {
         //GET request
-        List<TrelloBoardDto> trelloBoards = trelloService.fetchTrelloBoards();
+        List<TrelloBoardDto> trelloBoards = trelloFacade.fetchTrelloBoards();
 
         trelloBoards.stream()
                 .filter(n -> n.getId() != null)
@@ -42,7 +42,7 @@ public class TrelloController {
     @GetMapping("getTrelloBoardsAndLists")
     public void getTrelloBoardsAndLists() {
         //GET request
-        List<TrelloBoardDto> trelloBoards = trelloService.fetchTrelloBoards();
+        List<TrelloBoardDto> trelloBoards = trelloFacade.fetchTrelloBoards();
 
         trelloBoards.forEach(trelloBoardDto -> {
                 System.out.println(trelloBoardDto.getId() + " " + trelloBoardDto.getName());
