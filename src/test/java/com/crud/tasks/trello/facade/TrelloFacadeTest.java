@@ -36,8 +36,8 @@ class TrelloFacadeTest {
     @Test
     void shouldFetchEmptyList() {
         //Given
-        List<TrelloListDto> trelloLists = List.of(new TrelloListDto("1", "Tast_List", false));
-        List<TrelloBoardDto> trelloBoards = List.of(new TrelloBoardDto("2", "Test", trelloLists));
+        List<TrelloListDto> trelloListsDto = List.of(new TrelloListDto("1", "Tast_List", false));
+        List<TrelloBoardDto> trelloBoards = List.of(new TrelloBoardDto("2", "Test", trelloListsDto));
         List<TrelloList> mappedTrelloLists = List.of(new TrelloList("3", "test_list", false));
         List<TrelloBoard> mappedTrelloBoards = List.of(new TrelloBoard("4", "test", mappedTrelloLists));
         when(trelloService.fetchTrelloBoards()).thenReturn(trelloBoards);
