@@ -1,36 +1,34 @@
 package com.crud.tasks.controller;
 
-import com.crud.tasks.domain.CreatedTrelloCard;
+import com.crud.tasks.domain.CreatedTrelloCardDto;
 import com.crud.tasks.domain.TrelloBoardDto;
 import com.crud.tasks.domain.TrelloCardDto;
-import com.crud.tasks.trello.client.TrelloClient;
+import com.crud.tasks.trello.facade.TrelloFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1/trello")
 @CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class TrelloController {
-    private final TrelloClient trelloClient;
+    private final TrelloFacade trelloFacade;
 
     @PostMapping("createTrelloCard")
-    public CreatedTrelloCard createTrelloCard(@RequestBody TrelloCardDto trelloCardDto) {
-        return trelloClient.createNewCard(trelloCardDto);
+    public CreatedTrelloCardDto createTrelloCard(@RequestBody TrelloCardDto trelloCardDto) {
+        return trelloFacade.createCard(trelloCardDto);
     }
     @GetMapping("getTrelloBoards")
     public List<TrelloBoardDto> getTrelloBoards() {
-        return trelloClient.getTrelloBoards();
+        return trelloFacade.fetchTrelloBoards();
     }
-
+/*
     @GetMapping("getTrelloBoardsSample")
     public List<TrelloBoardDto> getTrelloBoardsSample() {
         //GET request
-        List<TrelloBoardDto> trelloBoards = trelloClient.getTrelloBoards();
+        List<TrelloBoardDto> trelloBoards = trelloFacade.fetchTrelloBoards();
 
         trelloBoards.stream()
                 .filter(n -> n.getId() != null)
@@ -44,7 +42,7 @@ public class TrelloController {
     @GetMapping("getTrelloBoardsAndLists")
     public void getTrelloBoardsAndLists() {
         //GET request
-        List<TrelloBoardDto> trelloBoards = trelloClient.getTrelloBoards();
+        List<TrelloBoardDto> trelloBoards = trelloFacade.fetchTrelloBoards();
 
         trelloBoards.forEach(trelloBoardDto -> {
                 System.out.println(trelloBoardDto.getId() + " " + trelloBoardDto.getName());
@@ -54,5 +52,5 @@ public class TrelloController {
                 trelloBoardDto.getLists().forEach(trelloListDto -> System.out.println(trelloListDto.getName() + " - " +
                         trelloListDto.getId() + " - " + trelloListDto.isClosed()));
         });
-    }
+    }*/
 }
