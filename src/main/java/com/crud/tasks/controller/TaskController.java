@@ -34,7 +34,7 @@ public class TaskController {
         dbService.deleteTask(taskId);
     }
 
-    @PutMapping(value = "updateTask")
+    @PutMapping(value = "updateTask", consumes = MediaType.APPLICATION_JSON_VALUE)
     public TaskDto updateTask(@RequestBody TaskDto taskDto) {
         Task task = taskMapper.mapToTask(taskDto);
         Task savedTask = dbService.saveTask(task);
@@ -42,8 +42,9 @@ public class TaskController {
     }
 
     @PostMapping(value = "createTask", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Task createTask(@RequestBody TaskDto taskDto) {
+    public TaskDto createTask(@RequestBody TaskDto taskDto) {
         Task createdTask = taskMapper.mapToTask(taskDto);
-        return dbService.saveTask(createdTask);
+        dbService.saveTask(createdTask);
+        return taskMapper.mapToTaskDto(createdTask);
     }
 }

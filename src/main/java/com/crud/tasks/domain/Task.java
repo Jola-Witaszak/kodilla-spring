@@ -9,7 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-@Entity(name = "tasks")
+@Entity
+@Table(name = "tasks")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
