@@ -82,7 +82,7 @@ class TrelloFacadeTest {
     @Test
     void shouldCreateCard() {
         //Given
-        Trello trello = new Trello(1, 1);
+        Trello trello = new Trello(2, 3);
         AttachmentsByType attachments = new AttachmentsByType(trello);
         Badges badges = new Badges(1, attachments);
         CreatedTrelloCardDto createdTrelloCardDto = new CreatedTrelloCardDto("1", "test_card",
