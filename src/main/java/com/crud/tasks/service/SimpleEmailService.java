@@ -31,9 +31,6 @@ public class SimpleEmailService {
     private SimpleMailMessage createMailMessage(final Mail mail) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setFrom(mail.getMailFrom());
-        if (Optional.ofNullable(mail.getReplyTo()).isPresent()) {
-            mailMessage.setReplyTo(mail.getReplyTo());
-        }
         mailMessage.setTo(mail.getMailTo());
         if (Optional.ofNullable(mail.getToCc()).isPresent()) {
             mailMessage.setCc(mail.getToCc());

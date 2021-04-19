@@ -9,10 +9,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.util.Date;
-
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
