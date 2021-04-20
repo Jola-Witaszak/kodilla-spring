@@ -126,6 +126,5 @@ class TaskControllerTestSuite {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(3))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.title").exists())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.content").value("content"));
-
     }
 }
