@@ -18,7 +18,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 @SpringJUnitWebConfig
@@ -34,7 +35,7 @@ class TaskControllerTestSuite {
     private TaskMapper taskMapper;
 
     @Test
-    void shouldFetchAllTasks() throws Exception {
+    void shouldGetAllTasks() throws Exception {
         //Given
         List<Task> tasksList = List.of(new Task(1L, "Shopping list", "water, milk, iceCream"));
         List<TaskDto> taskDtoList = List.of(new TaskDto(1L, "Shopping list", "water, milk, iceCream"));
@@ -49,7 +50,7 @@ class TaskControllerTestSuite {
     }
 
     @Test
-    void testGetTaskById() throws Exception {  //ToDo
+    void testGetTaskById() throws Exception {
         //Given
         Task task = new Task(2L, "shopping", "iceCream");
         TaskDto taskDto = new TaskDto(2L, "shopping", "iceCream");
@@ -61,19 +62,31 @@ class TaskControllerTestSuite {
                     .get("/v1/task/getTask")
                     .contentType(MediaType.APPLICATION_JSON)
                     .param("taskId", "2"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(2L)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name", Matchers.is("shopping")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(2))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.title").value("shopping"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.content", Matchers.is("iceCream")))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
+    void shouldDeleteTask() throws Exception {
+        //Given
+        doNothing().when(dbService).deleteTask(isA(Long.class));
+        //When & Then
+        mockMvc.perform(MockMvcRequestBuilders
+                    .delete("/v1/task/deleteTask")
+                    .param("taskId", "1"))
+                .andExpect(MockMvcResultMatchers.status().is(200));
+    }
+
+    @Test
     void testCreateTask() throws Exception {
         //Given
-        Task task = new Task(3L, "test title", "test content");
-        TaskDto taskDto = new TaskDto(3L, "test title", "test content");
+        Task task = new Task(null, "test_title", "test_content");
+        Task createdTask = new Task(3L,"test_title", "test_content");
+        TaskDto taskDto = new TaskDto(null, "test_title", "test_content");
         when(taskMapper.mapToTask(taskDto)).thenReturn(task);
-        when(dbService.saveTask(any(Task.class))).thenReturn(task);
+        when(dbService.saveTask(task)).thenReturn(createdTask);
         when(taskMapper.mapToTaskDto(task)).thenReturn(taskDto);
 
         Gson gson = new Gson();
@@ -84,9 +97,9 @@ class TaskControllerTestSuite {
                     .contentType(MediaType.APPLICATION_JSON)
                     .characterEncoding("UTF-8")
                     .content(jsonContent))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(3L)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.title", Matchers.is("test title")))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.content", Matchers.is("test content")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(3))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.title").value("test_title"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.content").value("test_content"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 }
