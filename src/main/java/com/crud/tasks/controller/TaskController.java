@@ -44,8 +44,8 @@ public class TaskController {
 
     @PostMapping(value = "createTask", consumes = MediaType.APPLICATION_JSON_VALUE)
     public TaskDto createTask(@RequestBody TaskDto taskDto) {
-        Task task = taskMapper.mapToTask(taskDto);
-        Task savedTask = dbService.saveTask(task);
+        Task createdTask = taskMapper.mapToTask(taskDto);
+        Task savedTask = dbService.saveTask(createdTask);
         return taskMapper.mapToTaskDto(savedTask);
     }
 }
