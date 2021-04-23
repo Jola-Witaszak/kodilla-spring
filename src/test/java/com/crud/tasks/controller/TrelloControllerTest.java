@@ -73,7 +73,6 @@ class TrelloControllerTest {
         when(trelloFacade.createCard(any(TrelloCardDto.class))).thenReturn(createdTrelloCardDto);
         Gson gson = new Gson();
         String jsonContent = gson.toJson(trelloCardDto);
-        String jsonBadges = gson.toJson(badges);
         //When & Then
         mockMvc.perform(MockMvcRequestBuilders
                     .post("/v1/trello/createTrelloCard")

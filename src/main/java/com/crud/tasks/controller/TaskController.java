@@ -15,6 +15,7 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class TaskController {
+
     private final DbService dbService;
     private final TaskMapper taskMapper;
 
@@ -44,7 +45,7 @@ public class TaskController {
     @PostMapping(value = "createTask", consumes = MediaType.APPLICATION_JSON_VALUE)
     public TaskDto createTask(@RequestBody TaskDto taskDto) {
         Task createdTask = taskMapper.mapToTask(taskDto);
-        dbService.saveTask(createdTask);
-        return taskMapper.mapToTaskDto(createdTask);
+        Task savedTask = dbService.saveTask(createdTask);
+        return taskMapper.mapToTaskDto(savedTask);
     }
 }
