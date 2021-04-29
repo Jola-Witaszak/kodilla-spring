@@ -1,0 +1,23 @@
+{
+  "properties": [
+    {
+      "name": "trello.api.endpoint.prod",
+      "type": "java.lang.String",
+      "description": "https://api.trello.com/1."
+    },
+    {
+      "name": "trello.app.key",
+      "type": "java.lang.String",
+      "description": "2ac06f37f5033b22646cbac188493531."
+    },
+    {
+      "name": "trello.app.token",
+      "type": "java.lang.String",
+      "description": "00be9ac2b29547cd2e816de8dd17758bfecfd7b4daf8a2b08dae1cd4942feb88."
+    },
+    {
+      "name": "trello.userName",
+      "type": "java.lang.String",
+      "description": "wjola."
+    }
+  ] }

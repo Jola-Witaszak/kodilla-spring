@@ -17,9 +17,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.4.2'
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.4.2'
-
-	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail'
-
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator:2.4.4'
 
 	testImplementation ('org.springframework.boot:spring-boot-starter-test') {
@@ -32,6 +30,7 @@ dependencies {
 
 	compileOnly 'org.projectlombok:lombok:1.18.18'
 	annotationProcessor 'org.projectlombok:lombok:1.18.18'
+	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 
 	testCompileOnly 'org.projectlombok:lombok:1.18.18'
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.18'
