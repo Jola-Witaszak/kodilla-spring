@@ -1,15 +1,20 @@
 package com.crud.tasks.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@RequiredArgsConstructor
 public class TrelloCardDto {
+    @NonNull
     private String name;
+    @NonNull
     private String description;
+    @NonNull
     private String pos;
+    @NonNull
     private String idList;
 }

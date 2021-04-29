@@ -3,7 +3,6 @@ package com.crud.tasks.domain;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.time.Instant;
 import java.util.Date;
 
 @Builder

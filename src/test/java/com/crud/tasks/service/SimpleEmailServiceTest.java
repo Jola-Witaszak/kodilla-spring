@@ -25,16 +25,12 @@ class SimpleEmailServiceTest {
     public void shouldSendEmail() {
         //Given
         Mail mail = Mail.builder()
-                .mailFrom("xpc@o@.pl")
-                .replyTo("")
                 .mailTo("test@test.pl")
                 .toCc("testToCc@test.pl")
                 .subject("Test subject")
                 .message("test message")
                 .build();
         SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setFrom(mail.getMailFrom());
-        mailMessage.setReplyTo(mail.getReplyTo());
         mailMessage.setTo(mail.getMailTo());
         mailMessage.setCc(mail.getToCc());
         mailMessage.setSentDate(mail.getSentDate());

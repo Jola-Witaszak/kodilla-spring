@@ -17,7 +17,10 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.4.2'
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.4.2'
-	implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail'
+
+	implementation 'org.springframework.boot:spring-boot-starter-actuator:2.4.4'
 
 	testImplementation ('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
@@ -33,8 +36,14 @@ dependencies {
 	testCompileOnly 'org.projectlombok:lombok:1.18.18'
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.18'
 
-	compile('io.springfox:springfox-swagger2:2.9.2')
-	compile('io.springfox:springfox-swagger-ui:2.9.2')
+	implementation('io.springfox:springfox-swagger2:2.9.2')
+	implementation('io.springfox:springfox-swagger-ui:2.9.2')
+
+	implementation group: 'org.mapstruct', name: 'mapstruct', version: '1.4.2.Final'
+	implementation group: 'org.mapstruct', name: 'mapstruct-processor', version: '1.4.2.Final'
+	testAnnotationProcessor "org.mapstruct:mapstruct-processor:1.4.2.Final"
+
+	testImplementation 'com.google.code.gson:gson'
 }
 
 test {

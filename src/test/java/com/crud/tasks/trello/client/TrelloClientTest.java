@@ -16,7 +16,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -34,7 +34,7 @@ class TrelloClientTest {
         // Given
         when(trelloConfig.getTrelloApiEndpoint()).thenReturn("http://test.com");
         when(trelloConfig.getTrelloAppKey()).thenReturn("test");
-        when(trelloConfig.getTrelloToken()).thenReturn("test");
+        when(trelloConfig.getTrelloAppToken()).thenReturn("test");
         when(trelloConfig.getTrelloUsername()).thenReturn("test");
 
         TrelloBoardDto[] trelloBoards = new TrelloBoardDto[1];
@@ -57,7 +57,7 @@ class TrelloClientTest {
         //Given
         when(trelloConfig.getTrelloApiEndpoint()).thenReturn("http://test.com");
         when(trelloConfig.getTrelloAppKey()).thenReturn("test");
-        when(trelloConfig.getTrelloToken()).thenReturn("test");
+        when(trelloConfig.getTrelloAppToken()).thenReturn("test");
         TrelloCardDto trelloCardDto = new TrelloCardDto(
                 "Test Task",
                 "Test description",
@@ -66,13 +66,15 @@ class TrelloClientTest {
         );
         URI uri = new URI("http://test.com/cards?key=test&token=test&name=Test%20Task&desc=Test%20description&pos=top&idList=test_id");
 
-        Badges badges = new Badges();
-        CreatedTrelloCard createdTrelloCard = new CreatedTrelloCard(
+        Trello trello = new Trello(6, 7);
+        AttachmentsByType attachmentsByType = new AttachmentsByType(trello);
+        Badges badges = new Badges(5, attachmentsByType);
+        CreatedTrelloCardDto createdTrelloCard = new CreatedTrelloCardDto(
                 "1", "Test Task", "http://test.com", badges);
 
-        when(restTemplate.postForObject(uri, null, CreatedTrelloCard.class)).thenReturn(createdTrelloCard);
+        when(restTemplate.postForObject(uri, null, CreatedTrelloCardDto.class)).thenReturn(createdTrelloCard);
         //When
-        CreatedTrelloCard newCard = trelloClient.createNewCard(trelloCardDto);
+        CreatedTrelloCardDto newCard = trelloClient.createNewCard(trelloCardDto);
         //Then
         assertEquals("1", newCard.getId());
         assertEquals("Test Task", newCard.getName());
@@ -84,7 +86,7 @@ class TrelloClientTest {
         //Given
         when(trelloConfig.getTrelloApiEndpoint()).thenReturn("http://test.com");
         when(trelloConfig.getTrelloAppKey()).thenReturn("test");
-        when(trelloConfig.getTrelloToken()).thenReturn("test");
+        when(trelloConfig.getTrelloAppToken()).thenReturn("test");
         when(trelloConfig.getTrelloUsername()).thenReturn("test");
 
         URI uri = new URI("http://test.com/members/test/boards?fields=name,id&lists=all&key=test&token=test");
