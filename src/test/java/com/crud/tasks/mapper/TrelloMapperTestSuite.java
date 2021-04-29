@@ -18,38 +18,31 @@ class TrelloMapperTestSuite {
     private TrelloMapper trelloMapper;
 
     private List<TrelloList> getTrelloLists() {
-        TrelloList toDo = new TrelloList("1", "ToDo", false);
-        TrelloList inProgress = new TrelloList("2", "In Progress", false);
-        TrelloList done = new TrelloList("3", "Done", false);
-        List<TrelloList> trelloLists = new ArrayList<>();
-        trelloLists.add(toDo);
-        trelloLists.add(inProgress);
-        trelloLists.add(done);
-        return trelloLists;
+
+        return List.of(new TrelloList("1", "ToDo", false),
+                new TrelloList("2", "In Progress", false),
+                new TrelloList("3", "Done", false));
     }
 
     private List<TrelloListDto> getTrelloListDtos() {
-        TrelloListDto forMe = new TrelloListDto("21", "For Me", false);
-        TrelloListDto forMyDog = new TrelloListDto("22", "For My Dog", true);
-        TrelloListDto forMyCar = new TrelloListDto("23", "For My Car", false);
-        List<TrelloListDto> trelloListDtos = new ArrayList<>();
-        trelloListDtos.add(forMe);
-        trelloListDtos.add(forMyDog);
-        trelloListDtos.add(forMyCar);
-        return trelloListDtos;
+
+        return List.of(new TrelloListDto("21", "For Me", false),
+                new TrelloListDto("22", "For My Dog", true),
+                new TrelloListDto("23", "For My Car", false));
     }
 
     @Test
     void testMapToTrelloBoard() {
         //Given
         List<TrelloListDto> trelloListDtos = getTrelloListDtos();
-        TrelloBoardDto myBoard = new TrelloBoardDto("My Board", "31", trelloListDtos);
+        TrelloBoardDto trelloBoardDto = new TrelloBoardDto("My Board", "31", trelloListDtos);
         //When
-        TrelloBoard trelloBoard = trelloMapper.mapToTrelloBoard(myBoard);
+        TrelloBoard trelloBoard = trelloMapper.mapToTrelloBoard(trelloBoardDto);
         //Then
         assertNotNull(trelloBoard);
         assertEquals("For My Car", trelloBoard.getLists().get(2).getName());
         assertEquals("31", trelloBoard.getId());
+
     }
 
     @Test
@@ -60,8 +53,10 @@ class TrelloMapperTestSuite {
         //When
         TrelloBoardDto trelloBoardDto = trelloMapper.mapToTrelloBoardDto(trelloBoard);
         //Then
-        assertEquals("Globott", trelloBoardDto.getName());
         assertNotNull(trelloBoardDto);
+        assertEquals("11", trelloBoardDto.getId());
+        assertEquals("Globott", trelloBoardDto.getName());
+        assertEquals(3, trelloBoardDto.getLists().size());
     }
 
     @Test
@@ -91,27 +86,24 @@ class TrelloMapperTestSuite {
     void mapToTrelloBoardsList() {
         //Given
         List<TrelloListDto> trelloListDtos = getTrelloListDtos();
-        TrelloBoardDto trelloBoardDto = new TrelloBoardDto("test", "6", trelloListDtos);
-        List<TrelloBoardDto> trelloBoardDtos = new ArrayList<>();
-        trelloBoardDtos.add(trelloBoardDto);
-        //When
+        List<TrelloBoardDto> trelloBoardDtos = List.of(new TrelloBoardDto("test", "6", trelloListDtos));
+                //When
         List<TrelloBoard> mappedList = trelloMapper.mapToTrelloBoardsList(trelloBoardDtos);
         //Then
         assertNotNull(mappedList);
         assertEquals("test", mappedList.get(0).getName());
+        assertEquals("6", mappedList.get(0).getId());
+        assertEquals(3, mappedList.get(0).getLists().size());
     }
 
     @Test
     void testMapToTrelloBoardsDtoList() {
         //Given
         List<TrelloList> trelloLists = getTrelloLists();
-        TrelloBoard globott = new TrelloBoard("41", "Globott", trelloLists);
-        TrelloBoard shopping = new TrelloBoard("42", "Shopping", new ArrayList<>());
-        TrelloBoard kodilla = new TrelloBoard("44", "kodilla", new LinkedList<>());
-        List<TrelloBoard> trelloBoardsList = new ArrayList<>();
-        trelloBoardsList.add(globott);
-        trelloBoardsList.add(shopping);
-        trelloBoardsList.add(kodilla);
+        List<TrelloBoard> trelloBoardsList = List.of(new TrelloBoard("41", "Globott", trelloLists),
+                new TrelloBoard("42", "Shopping", List.of()),
+                new TrelloBoard("44", "kodilla", List.of()));
+
         //When
         List<TrelloBoardDto> mappedList = trelloMapper.mapToTrelloBoardsDtoList(trelloBoardsList);
         //Then
@@ -128,6 +120,9 @@ class TrelloMapperTestSuite {
         //Then
         assertNotNull(mappedCard);
         assertEquals("buying flowers", mappedCard.getName());
+        assertEquals("tulips", mappedCard.getDescription());
+        assertEquals("top", mappedCard.getPos());
+        assertEquals("1", mappedCard.getIdList());
     }
 
     @Test
@@ -138,6 +133,9 @@ class TrelloMapperTestSuite {
         TrelloCard mappedCard = trelloMapper.mapToTrelloCard(trelloCardDto);
         //Then
         assertNotNull(mappedCard);
+        assertEquals("find my dog", mappedCard.getName());
+        assertEquals("black dog", mappedCard.getDescription());
         assertEquals("bottom", mappedCard.getPos());
+        assertEquals("1", mappedCard.getIdList());
     }
 }
