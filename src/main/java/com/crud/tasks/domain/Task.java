@@ -1,6 +1,7 @@
 package com.crud.tasks.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -9,10 +10,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-@Entity(name = "tasks")
+@Entity
+@Table(name = "tasks")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 public class Task {
     @Id
     @GeneratedValue
@@ -24,3 +27,4 @@ public class Task {
     @Column(name = "description")
     private String content;
 }
+
