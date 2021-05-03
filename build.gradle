@@ -25,8 +25,8 @@ dependencies {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
 
-	//runtimeOnly 'org.postgresql:postgresql'
-	runtimeOnly group: 'mysql', name: 'mysql-connector-java', version: '8.0.23'
+	runtimeOnly 'org.postgresql:postgresql'
+	//runtimeOnly group: 'mysql', name: 'mysql-connector-java', version: '8.0.23'
 	//providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 
 	compileOnly 'org.projectlombok:lombok:1.18.18'
