@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/v1/task")
-@CrossOrigin(origins = "*")
+@CrossOrigin("*")
 @RequiredArgsConstructor
 public class TaskController {
 
