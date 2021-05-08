@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,8 +20,12 @@ public class DbService {
         return repository.findAll();
     }
 
-    public Task getTask(final long id) {
-        return repository.findById(id);
+    public Task getTask(final long id) throws TaskNotFoundException {
+        if (repository.existsById(id)) {
+            return repository.findById(id);
+        } else {
+            throw new TaskNotFoundException("Task with id " + id + " not exists");
+        }
     }
 
     public Task saveTask(final Task task) {
@@ -31,7 +36,7 @@ public class DbService {
         if (repository.existsById(id)) {
             repository.deleteById(id);
         } else {
-            throw new TaskNotFoundException();
+            throw new TaskNotFoundException("Task with id " + id + " not exists");
         }
     }
 }

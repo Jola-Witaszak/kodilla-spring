@@ -35,7 +35,7 @@ class TrelloControllerTest {
         when(trelloFacade.fetchTrelloBoards()).thenReturn(List.of());
         //When & Then
         mockMvc.perform(MockMvcRequestBuilders
-                    .get("/v1/trello/getTrelloBoards")
+                    .get("/v1/trello/boards")
                     .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().is(200))
                 .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(0)));
@@ -45,15 +45,15 @@ class TrelloControllerTest {
     void shouldFetchTrelloBoards() throws Exception {
         //Given
         List<TrelloListDto> trelloListsDto = List.of(new TrelloListDto("2", "List", false));
-        List<TrelloBoardDto> trelloBoardsDto = List.of(new TrelloBoardDto("Board", "1", trelloListsDto));
+        List<TrelloBoardDto> trelloBoardsDto = List.of(new TrelloBoardDto("1", "board", trelloListsDto));
         when(trelloFacade.fetchTrelloBoards()).thenReturn(trelloBoardsDto);
         //When & Then
         mockMvc.perform(MockMvcRequestBuilders
-                    .get("/v1/trello/getTrelloBoards")
+                    .get("/v1/trello/boards")
                     .contentType(MediaType.APPLICATION_JSON))
             //TrelloBoardFields
                 .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(1)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name", Matchers.is("Board")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name", Matchers.is("board")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].id", Matchers.is("1")))
             // trelloList fields
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].lists", Matchers.hasSize(1)))
@@ -75,7 +75,7 @@ class TrelloControllerTest {
         String jsonContent = gson.toJson(trelloCardDto);
         //When & Then
         mockMvc.perform(MockMvcRequestBuilders
-                    .post("/v1/trello/createTrelloCard")
+                    .post("/v1/trello/cards")
                     .contentType(MediaType.APPLICATION_JSON)
                     .characterEncoding("UTF-8")
                     .content(jsonContent))

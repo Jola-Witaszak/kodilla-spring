@@ -17,8 +17,9 @@ public class TrelloMapper {
     }
 
     public TrelloBoardDto mapToTrelloBoardDto(final TrelloBoard trelloBoard) {
-        return new TrelloBoardDto(trelloBoard.getName(),
+        return new TrelloBoardDto(
                 trelloBoard.getId(),
+                trelloBoard.getName(),
                 mapToListTrelloListDtos(trelloBoard.getLists()));
     }
 

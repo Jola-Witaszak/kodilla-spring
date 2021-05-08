@@ -69,12 +69,14 @@ class DbServiceTest {
         //When
         List<Task> tasks = dbService.getAllTasks();
         //Then
-        assertEquals(3, tasks.size(), "List should have 3 tasks");
+        assertEquals(tasks.size(), taskRepository.findAll().size());
         assertNotEquals(0, id);
+        assertTrue(taskRepository.existsById(task2.getId()));
+        assertTrue(taskRepository.findById(task1.getId()).isPresent());
     }
 
     @Test
-    void shouldDownloadOneTask() {
+    void shouldDownloadOneTask() throws TaskNotFoundException {
         //Given
         Task task = new Task(null, "Test_title", "testContent");
         dbService.saveTask(task);

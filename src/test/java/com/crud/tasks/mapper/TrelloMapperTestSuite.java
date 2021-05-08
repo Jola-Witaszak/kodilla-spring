@@ -33,7 +33,7 @@ class TrelloMapperTestSuite {
     void testMapToTrelloBoard() {
         //Given
         List<TrelloListDto> trelloListDtos = getTrelloListDtos();
-        TrelloBoardDto trelloBoardDto = new TrelloBoardDto("My Board", "31", trelloListDtos);
+        TrelloBoardDto trelloBoardDto = new TrelloBoardDto("31", "My Board", trelloListDtos);
         //When
         TrelloBoard trelloBoard = trelloMapper.mapToTrelloBoard(trelloBoardDto);
         //Then
@@ -84,7 +84,7 @@ class TrelloMapperTestSuite {
     void mapToTrelloBoardsList() {
         //Given
         List<TrelloListDto> trelloListDtos = getTrelloListDtos();
-        List<TrelloBoardDto> trelloBoardDtos = List.of(new TrelloBoardDto("test", "6", trelloListDtos));
+        List<TrelloBoardDto> trelloBoardDtos = List.of(new TrelloBoardDto("6", "test", trelloListDtos));
                 //When
         List<TrelloBoard> mappedList = trelloMapper.mapToTrelloBoardsList(trelloBoardDtos);
         //Then
