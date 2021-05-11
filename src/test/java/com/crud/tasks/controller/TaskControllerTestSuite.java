@@ -155,4 +155,3 @@ class TaskControllerTestSuite {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.content").value("Content"));
     }
 }
-
