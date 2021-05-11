@@ -41,7 +41,7 @@ public class SimpleEmailService {
             }
             if (mail.getSubject().equals(EmailScheduler.getSUBJECT())) {
                 messageHelper.setSubject(mail.getSubject());
-                messageHelper.setText(mailCreatorService.buildOnceInADayEmail(mail.getMessage()), true);
+                messageHelper.setText(mailCreatorService.buildOnceADayEmail(mail.getMessage()), true);
             }
             messageHelper.setSubject(mail.getSubject());
             messageHelper.setText(mailCreatorService.buildTrelloCardEmail(mail.getMessage()), true);
