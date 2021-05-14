@@ -38,7 +38,7 @@ class TrelloClientTest {
         when(trelloConfig.getTrelloUsername()).thenReturn("test");
 
         TrelloBoardDto[] trelloBoards = new TrelloBoardDto[1];
-        trelloBoards[0] = new TrelloBoardDto("test_board","test_id", new ArrayList<>());
+        trelloBoards[0] = new TrelloBoardDto("test_id","test_board", new ArrayList<>());
 
         URI uri = new URI("http://test.com/members/test/boards?fields=name,id&lists=all&key=test&token=test");
 

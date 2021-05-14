@@ -19,11 +19,11 @@ public class TrelloController {
     @Autowired
     private final TrelloFacade trelloFacade;
 
-    @PostMapping(value = "createTrelloCard", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping("/cards")
     public CreatedTrelloCardDto createTrelloCard(@RequestBody TrelloCardDto trelloCardDto) {
         return trelloFacade.createCard(trelloCardDto);
     }
-    @GetMapping("getTrelloBoards")
+    @GetMapping("/boards")
     public List<TrelloBoardDto> getTrelloBoards() {
         return trelloFacade.fetchTrelloBoards();
     }
