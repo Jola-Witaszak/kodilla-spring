@@ -16,7 +16,7 @@ public class EmailScheduler {
     private final TaskRepository taskRepository;
     private final AdminConfig adminConfig;
 
-    @Scheduled(cron = "0 0 10 * * *")
+    @Scheduled(cron = "0 0 8-12 * * *")
     public void sendInformationEmail() {
         long size = taskRepository.count();
         String taskOne = "Currently in the database you got: " + size + " task";
@@ -28,5 +28,9 @@ public class EmailScheduler {
                         .message(size == 1 ? taskOne : tasksMany)
                         .build()
         );
+    }
+
+    public static String getSUBJECT() {
+        return SUBJECT;
     }
 }

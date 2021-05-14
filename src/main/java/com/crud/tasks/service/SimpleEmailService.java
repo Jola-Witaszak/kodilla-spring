@@ -1,6 +1,7 @@
 package com.crud.tasks.service;
 
 import com.crud.tasks.domain.Mail;
+import com.crud.tasks.scheduler.EmailScheduler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,10 @@ public class SimpleEmailService {
             messageHelper.setTo(mail.getMailTo());
             if (ofNullable(mail.getToCc()).isPresent()) {
                 messageHelper.setCc(mail.getToCc());
+            }
+            if (mail.getSubject().equals(EmailScheduler.getSUBJECT())) {
+                messageHelper.setSubject(mail.getSubject());
+                messageHelper.setText(mailCreatorService.buildOnceADayEmail(mail.getMessage()), true);
             }
             messageHelper.setSubject(mail.getSubject());
             messageHelper.setText(mailCreatorService.buildTrelloCardEmail(mail.getMessage()), true);
