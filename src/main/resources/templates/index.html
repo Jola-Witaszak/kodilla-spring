@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My welcome page</title>
+</head>
+<body>
+
+<h1>First impression of my page</h1>
+
+<!--/*@thymesVar id="variable" type="com.crud.tasks.controller.StaticWebPageController"*/-->
+
+<p style="font-family: sans-serif; font-size: 20px; font-weight: normal; margin: 0; Margin-bottom: 15px;"><span th:text="${variable}"></span>
+<br>
+<p style="font-family: sans-serif; font-size: 20px; font-weight: normal; margin: 0; Margin-bottom: 15px;"> 2 * 2 =  <span th:text="${two} * ${two}"></span></p>
+<p style="font-family: sans-serif; font-size: 20px; font-weight: normal; margin: 0; Margin-bottom: 15px;"> 2 * 2 + 2 =  <span th:text="${two} * ${two} + ${two}"></span></p>
+<p style="font-family: sans-serif; font-size: 20px; font-weight: normal; margin: 0; Margin-bottom: 15px;"> 2 - 2 * 2 =  <span th:text="${two} - ${two} * ${two}"></span></p>
+
+</body>
+</html>
+
