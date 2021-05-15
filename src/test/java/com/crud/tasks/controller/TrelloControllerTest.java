@@ -87,3 +87,4 @@ class TrelloControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.badges.attachmentsByType.trello.card", Matchers.is(7)));
     }
 }
+
